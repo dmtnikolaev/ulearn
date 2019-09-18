@@ -1,0 +1,18 @@
+---
+lang: en
+
+documentclass: extarticle
+fontsize: 14pt
+geometry: left=30mm,right=15mm,top=20mm,bottom=20mm,headsep=0pt,includefoot
+
+# Eisvogel settings (see https://github.com/Wandmalfarbe/pandoc-latex-template)
+#
+toc-own-page: True
+disable-header-and-footer: True
+listings-disable-line-numbers: True
+
+include-before: |
+    \input{titlepage.tex}
+
+    \setcounter{page}{2}
+---
