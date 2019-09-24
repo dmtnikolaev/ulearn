@@ -17,19 +17,15 @@ struct Set {
     Set* next;
 };
 
-Set* Set_New() {
-    return Set_New('\0');
+Set* Set_New(char v, Set* next) {
+    return new Set { v, next };
 }
 
 Set* Set_New(char v) {
     return Set_New(v, nullptr);
 }
 
-Set* Set_New(char v, Set* next) {
-    return new Set { v, next };
-}
-
-Set* Set_Delete(Set* a) {
+void Set_Delete(Set* a) {
     while (a != nullptr) {
         auto tmp = a->next;
         delete a;
@@ -51,12 +47,43 @@ Set* Set_Add(Set* a, char v) {
     return a;
 }
 
-Set* Set_Union(const Set& a, const Set& b) {
-    static_assert(false, "Not implemented");
+bool Set_Contains(const Set* a, char v) {
+    while (a != nullptr) {
+        if (a->val == v) {
+            return true;
+        }
+        a = a->next;
+    }
+    return false;
 }
 
-Set* Set_Substr(const Set& a, const Set& b) {
-    static_assert(false, "Not implemented");
+Set* Set_Union(const Set* a, const Set* b) {
+    Set* c = nullptr;
+
+    while (a != nullptr) {
+        c = Set_Add(c, a->val);
+        a = a->next;
+    }
+
+    while (b != nullptr) {
+        if (!Set_Contains(c, b->val)) {
+            c = Set_Add(c, b->val);
+        }
+        b = b->next;
+    }
+
+    return c;
+}
+
+Set* Set_Substr(const Set* a, const Set* b) {
+    Set* c = nullptr;
+    while (a != nullptr) {
+        if (!Set_Contains(b, a->val)) {
+            c = Set_Add(c, a->val);
+        }
+        a = a->next;
+    }
+    return c;
 }
 
 string Set_ToString(const Set& a) {
@@ -69,11 +96,11 @@ string Set_ToString(const Set& a) {
     return str;
 }
 
-Set* EvaluateSet(const Set& A, const Set& B,
-                 const Set& C, const Set& D) {
-    auto A_and_C = Set_Union(A, B);
+Set* EvaluateSet(const Set* A, const Set* B,
+                 const Set* C, const Set* D) {
+    auto A_and_C = Set_Union(A, C);
     auto B_and_D = Set_Union(B, D);
-    auto res = Set_Substr(*A_and_C, *B_and_D);
+    auto res = Set_Substr(A_and_C, B_and_D);
 
     Set_Delete(A_and_C);
     Set_Delete(B_and_D);
@@ -90,7 +117,6 @@ string ReadHex(string prompt) {
 }
 
 Set* ToList(const string& hex_array) {
-    // Is everything good?
     Set* set = nullptr;
     for (auto c : hex_array) {
         set = Set_Add(set, c);
@@ -112,15 +138,23 @@ int ReadMode() {
     return mode;
 }
 
-Set* GenerateList() {
-    static_assert(false, "Not implemented");
+Set* GenerateSet() {
+    Set* set = nullptr;
+    // Создаем множество размером не больше универсума.
+    for (auto x : UNIVERSUM) {
+        auto should_add_x = rand() < RAND_MAX/2;
+        if (should_add_x) {
+            set = Set_Add(set, x);
+        }
+    }
+    return set;
 }
 
 auto GenerateInput() {
-    auto A = GenerateList();
-    auto B = GenerateList();
-    auto C = GenerateList();
-    auto D = GenerateList();
+    auto A = GenerateSet();
+    auto B = GenerateSet();
+    auto C = GenerateSet();
+    auto D = GenerateSet();
 
     cout << "A: " << Set_ToString(*A) << endl;
     cout << "B: " << Set_ToString(*B) << endl;
@@ -162,7 +196,7 @@ int main() {
             return 0;
     }
 
-    auto res = EvaluateSet(*A, *B, *C, *D);
+    auto res = EvaluateSet(A, B, C, D);
     auto res_str = Set_ToString(*res);
 
     cout << "(A | C) & !(B | D): "
