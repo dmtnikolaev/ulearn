@@ -40,7 +40,7 @@ PANDOC_OPTIONS = \
 	--from markdown+multiline_tables+grid_tables+raw_tex \
 
 # Add filters to Pandoc if necessary.
-#PANDOC_OPTIONS += --filter=pantable
+PANDOC_OPTIONS += --filter=pandoc-eqnos
 
 # Rule for MD -> PDF.
 #
