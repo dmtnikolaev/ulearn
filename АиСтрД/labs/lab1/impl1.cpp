@@ -31,7 +31,7 @@ string ReadHex(string prompt) {
 }
 
 array<int, MAX_LEN> ToBitArray(const string& hex_array) {
-    array<int, MAX_LEN> arr = {0 };
+    array<int, MAX_LEN> arr = { 0 };
     for (auto c : hex_array) {
         for (auto i = 0; i < MAX_LEN; ++i) {
             if (c == UNIVERSUM[i]) {

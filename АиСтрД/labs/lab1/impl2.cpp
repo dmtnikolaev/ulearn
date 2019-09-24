@@ -15,9 +15,7 @@ const int UNIVERSUM_LEN = 16;
 const char UNIVERSUM[] = "1234567890ABCDEF";
 
 WORD EvaluateWord(WORD A, WORD B, WORD C, WORD D) {
-    WORD res = 0;
-    res = (A | C) & ~(B | D);
-    return res;
+    return (A | C) & ~(B | D);
 }
 
 string ReadHex(string prompt) {
