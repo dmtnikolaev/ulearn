@@ -5,7 +5,6 @@
 #include <string>
 #include <array>
 #include <tuple>
-#include <functional>
 
 using namespace std;
 
@@ -75,7 +74,7 @@ Set* Set_Union(const Set* a, const Set* b) {
     return c;
 }
 
-Set* Set_Substr(const Set* a, const Set* b) {
+Set* Set_Subtract(const Set* a, const Set* b) {
     Set* c = nullptr;
     while (a != nullptr) {
         if (!Set_Contains(b, a->val)) {
@@ -98,12 +97,12 @@ string Set_ToString(const Set& a) {
 
 Set* EvaluateSet(const Set* A, const Set* B,
                  const Set* C, const Set* D) {
-    auto A_and_C = Set_Union(A, C);
-    auto B_and_D = Set_Union(B, D);
-    auto res = Set_Substr(A_and_C, B_and_D);
+    auto A_or_C = Set_Union(A, C);
+    auto B_or_D = Set_Union(B, D);
+    auto res = Set_Subtract(A_or_C, B_or_D);
 
-    Set_Delete(A_and_C);
-    Set_Delete(B_and_D);
+    Set_Delete(A_or_C);
+    Set_Delete(B_or_D);
 
     return res;
 }
