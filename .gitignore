@@ -3,10 +3,6 @@
 
 # Cmake build
 cmake-build-debug/
-cmake/
-
-# Out folder
-out/
 
 # Prerequisites
 *.d
