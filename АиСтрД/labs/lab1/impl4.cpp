@@ -11,7 +11,7 @@ using namespace std;
 const int MAX_LEN = 16;
 const char UNIVERSUM[] = { "1234567890ABCDEF" };
 
-bool ContainsArray(const array<char, MAX_LEN> A, char a) {
+bool Set_Contains(const array<char, MAX_LEN> A, char a) {
     for (auto i = 0; A[i] != 0; i++) {
         if (A[i] == a) {
             return true;
@@ -20,7 +20,7 @@ bool ContainsArray(const array<char, MAX_LEN> A, char a) {
     return false;
 }
 
-array<char, MAX_LEN> UnionArray(const array<char, MAX_LEN> A,
+array<char, MAX_LEN> Set_Union(const array<char, MAX_LEN> A,
                                 const array<char, MAX_LEN> B) {
     array<char, MAX_LEN> res;
     auto res_len = 0;
@@ -31,7 +31,7 @@ array<char, MAX_LEN> UnionArray(const array<char, MAX_LEN> A,
     }
 
     for (auto i = 0; B[i] != 0; i++) {
-        if (!ContainsArray(res, B[i])) {
+        if (!Set_Contains(res, B[i])) {
             res[res_len] = B[i];
             res_len++;
         }
@@ -42,12 +42,12 @@ array<char, MAX_LEN> UnionArray(const array<char, MAX_LEN> A,
     return res;
 }
 
-array<char, MAX_LEN> SubtractArray(const array<char, MAX_LEN> A,
+array<char, MAX_LEN> Set_Subtract(const array<char, MAX_LEN> A,
                                    const array<char, MAX_LEN> B) {
     auto res_len = 0;
     array<char, MAX_LEN> res;
     for (auto i = 0; A[i] != 0; i++) {
-        if (!ContainsArray(B, A[i])) {
+        if (!Set_Contains(B, A[i])) {
             res[res_len] = A[i];
             res_len++;
         }
@@ -58,13 +58,13 @@ array<char, MAX_LEN> SubtractArray(const array<char, MAX_LEN> A,
     return res;
 }
 
-array<char, MAX_LEN> EvaluateArray(const array<char, MAX_LEN> A,
+array<char, MAX_LEN> DoEvaluation(const array<char, MAX_LEN> A,
                                    const array<char, MAX_LEN> B,
                                    const array<char, MAX_LEN> C,
                                    const array<char, MAX_LEN> D) {
-    auto A_or_C = UnionArray(A, C);
-    auto B_or_D = UnionArray(B, D);
-    return SubtractArray(A_or_C, B_or_D);
+    auto A_or_C = Set_Union(A, C);
+    auto B_or_D = Set_Union(B, D);
+    return Set_Subtract(A_or_C, B_or_D);
 }
 
 string ReadHex(string prompt) {
@@ -75,7 +75,7 @@ string ReadHex(string prompt) {
     return str;
 }
 
-array<char, MAX_LEN> ToSymbolArray(const string& hex_array) {
+array<char, MAX_LEN> ToSet(const string& hex_array) {
     bool used_symbols[MAX_LEN] = { false };
     array<char, MAX_LEN> arr = { 0 };
     
@@ -111,7 +111,7 @@ int ReadMode() {
     return mode;
 }
 
-array<char, MAX_LEN> GenerateSymbolArray() {
+array<char, MAX_LEN> GenerateSet() {
     static_assert(MAX_LEN <= numeric_limits<unsigned char>::digits*sizeof(int),
         "MAX_LEN should be less than or equal to the count of bits in int.");
 
@@ -129,10 +129,10 @@ array<char, MAX_LEN> GenerateSymbolArray() {
 }
 
 auto GenerateInput() {
-    auto A = GenerateSymbolArray();
-    auto B = GenerateSymbolArray();
-    auto C = GenerateSymbolArray();
-    auto D = GenerateSymbolArray();
+    auto A = GenerateSet();
+    auto B = GenerateSet();
+    auto C = GenerateSet();
+    auto D = GenerateSet();
 
     cout << "A: " << ToString(A) << endl;
     cout << "B: " << ToString(B) << endl;
@@ -143,10 +143,10 @@ auto GenerateInput() {
 }
 
 auto ReadInputFromUser() {
-    auto A = ToSymbolArray(ReadHex("A: "));
-    auto B = ToSymbolArray(ReadHex("B: "));
-    auto C = ToSymbolArray(ReadHex("C: "));
-    auto D = ToSymbolArray(ReadHex("D: "));
+    auto A = ToSet(ReadHex("A: "));
+    auto B = ToSet(ReadHex("B: "));
+    auto C = ToSet(ReadHex("C: "));
+    auto D = ToSet(ReadHex("D: "));
 
     return make_tuple(A, B, C, D );
 }
