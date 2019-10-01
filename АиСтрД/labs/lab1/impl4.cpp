@@ -21,7 +21,7 @@ bool Set_Contains(const array<char, MAX_LEN> A, char a) {
 }
 
 array<char, MAX_LEN> Set_Union(const array<char, MAX_LEN> A,
-                                const array<char, MAX_LEN> B) {
+                               const array<char, MAX_LEN> B) {
     array<char, MAX_LEN> res;
     auto res_len = 0;
 
@@ -59,9 +59,9 @@ array<char, MAX_LEN> Set_Subtract(const array<char, MAX_LEN> A,
 }
 
 array<char, MAX_LEN> DoEvaluation(const array<char, MAX_LEN> A,
-                                   const array<char, MAX_LEN> B,
-                                   const array<char, MAX_LEN> C,
-                                   const array<char, MAX_LEN> D) {
+                                  const array<char, MAX_LEN> B,
+                                  const array<char, MAX_LEN> C,
+                                  const array<char, MAX_LEN> D) {
     auto A_or_C = Set_Union(A, C);
     auto B_or_D = Set_Union(B, D);
     return Set_Subtract(A_or_C, B_or_D);
@@ -171,7 +171,7 @@ int main() {
             return 0;
     }
 
-    auto res = ToString(EvaluateArray(A, B, C, D));
+    auto res = ToString(DoEvaluation(A, B, C, D));
 
     cout << "(A | C) & !(B | D): "
          << res
