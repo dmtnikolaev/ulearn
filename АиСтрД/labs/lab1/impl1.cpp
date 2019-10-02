@@ -55,9 +55,10 @@ string ToString(array<int, MAX_LEN> arr) {
 
 int ReadMode() {
     cout << "Choose program mode:" << endl;
-    cout << "1 - Random input" << endl;
-    cout << "2 - Last random" << endl;
-    cout << "3 - Read input" << endl;
+    cout << "1 - Benchmark" << endl;
+    cout << "2 - Random input" << endl;
+    cout << "3 - Last random" << endl;
+    cout << "4 - Read input" << endl;
 
     int mode = -1;
     cout << "> ";
@@ -72,8 +73,6 @@ array<int, MAX_LEN> GenerateSet() {
 
     int random_bits = rand();
     array<int, MAX_LEN> res;
-
-    cout << random_bits << endl;
 
     for (auto i = 0; i < MAX_LEN; i++) {
         res[i] = random_bits & (1 << i);
@@ -107,17 +106,21 @@ auto ReadInputFromUser() {
 
 int main() {
     array<int, MAX_LEN> A, B, C, D;
+    auto n_repetitions = 1;
 
     auto mode = ReadMode();
 
     switch (mode) {
         case 1:
-            srand(time(nullptr));
+            n_repetitions = 100000;
             [[fallthrough]];
         case 2:
+            srand(time(nullptr));
+            [[fallthrough]];
+        case 3:
             tie(A, B, C, D) = GenerateInput();
             break;
-        case 3:
+        case 4:
             tie(A, B, C, D) = ReadInputFromUser();
             break;
         default:
@@ -125,10 +128,23 @@ int main() {
             return 0;
     }
 
-    auto res = ToString(DoEvaluation(A, B, C, D));
+    auto clk_begin = clock();
 
+    array<int, MAX_LEN> res;
+    for (auto i = 0; i < n_repetitions; i++) {
+        res = DoEvaluation(A, B, C, D);
+    }
+
+    if (mode == 1) {
+        auto clk_end = clock();
+        cout << "Elapsed time: "
+             << clk_end - clk_begin
+             << endl;
+    }
+
+    auto res_str = ToString(res);
     cout << "(A | C) & !(B | D): "
-         << res
+         << res_str
          << endl;
 
     return 0;
