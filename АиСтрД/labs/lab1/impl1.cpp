@@ -11,7 +11,7 @@ using namespace std;
 const int MAX_LEN = 16;
 const char UNIVERSUM[] = { "1234567890ABCDEF" };
 
-array<int, MAX_LEN> EvaluateArray(const array<int, MAX_LEN> A,
+array<int, MAX_LEN> DoEvaluation(const array<int, MAX_LEN> A,
                                   const array<int, MAX_LEN> B,
                                   const array<int, MAX_LEN> C,
                                   const array<int, MAX_LEN> D) {
@@ -30,7 +30,7 @@ string ReadHex(string prompt) {
     return str;
 }
 
-array<int, MAX_LEN> ToBitArray(const string& hex_array) {
+array<int, MAX_LEN> ToSet(const string& hex_array) {
     array<int, MAX_LEN> arr = { 0 };
     for (auto c : hex_array) {
         for (auto i = 0; i < MAX_LEN; ++i) {
@@ -66,7 +66,7 @@ int ReadMode() {
     return mode;
 }
 
-array<int, MAX_LEN> GenerateBitArray() {
+array<int, MAX_LEN> GenerateSet() {
     static_assert(MAX_LEN <= numeric_limits<unsigned char>::digits*sizeof(int),
         "MAX_LEN should be less than or equal to the count of bits in int.");
 
@@ -83,10 +83,10 @@ array<int, MAX_LEN> GenerateBitArray() {
 }
 
 auto GenerateInput() {
-    auto A = GenerateBitArray();
-    auto B = GenerateBitArray();
-    auto C = GenerateBitArray();
-    auto D = GenerateBitArray();
+    auto A = GenerateSet();
+    auto B = GenerateSet();
+    auto C = GenerateSet();
+    auto D = GenerateSet();
 
     cout << "A: " << ToString(A) << endl;
     cout << "B: " << ToString(B) << endl;
@@ -97,10 +97,10 @@ auto GenerateInput() {
 }
 
 auto ReadInputFromUser() {
-    auto A = ToBitArray(ReadHex("A: "));
-    auto B = ToBitArray(ReadHex("B: "));
-    auto C = ToBitArray(ReadHex("C: "));
-    auto D = ToBitArray(ReadHex("D: "));
+    auto A = ToSet(ReadHex("A: "));
+    auto B = ToSet(ReadHex("B: "));
+    auto C = ToSet(ReadHex("C: "));
+    auto D = ToSet(ReadHex("D: "));
 
     return make_tuple(A, B, C, D );
 }
@@ -125,7 +125,7 @@ int main() {
             return 0;
     }
 
-    auto res = ToString(EvaluateArray(A, B, C, D));
+    auto res = ToString(DoEvaluation(A, B, C, D));
 
     cout << "(A | C) & !(B | D): "
          << res

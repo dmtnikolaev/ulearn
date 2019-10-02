@@ -14,7 +14,7 @@ const size_t WORD_MAX = SHRT_MAX;
 const int UNIVERSUM_LEN = 16;
 const char UNIVERSUM[] = "1234567890ABCDEF";
 
-WORD EvaluateWord(WORD A, WORD B, WORD C, WORD D) {
+WORD DoEvaluation(WORD A, WORD B, WORD C, WORD D) {
     return (A | C) & ~(B | D);
 }
 
@@ -26,7 +26,7 @@ string ReadHex(string prompt) {
     return str;
 }
 
-WORD ToWord(const string& hex_array) {
+WORD ToSet(const string& hex_array) {
     WORD word = 0;
     for (auto c : hex_array) {
         WORD current_bit = 1;
@@ -69,15 +69,15 @@ int ReadMode() {
     return mode;
 }
 
-WORD GenerateWord() {
+WORD GenerateSet() {
     return rand() % static_cast<int>(WORD_MAX + 1);
 }
 
 std::tuple<WORD, WORD, WORD, WORD> GenerateInput() {
-    auto A = GenerateWord();
-    auto B = GenerateWord();
-    auto C = GenerateWord();
-    auto D = GenerateWord();
+    auto A = GenerateSet();
+    auto B = GenerateSet();
+    auto C = GenerateSet();
+    auto D = GenerateSet();
 
     cout << "A: " << ToString(A) << endl;
     cout << "B: " << ToString(B) << endl;
@@ -88,10 +88,10 @@ std::tuple<WORD, WORD, WORD, WORD> GenerateInput() {
 }
 
 std::tuple<WORD, WORD, WORD, WORD> ReadInputFromUser() {
-    auto A = ToWord(ReadHex("A: "));
-    auto B = ToWord(ReadHex("B: "));
-    auto C = ToWord(ReadHex("C: "));
-    auto D = ToWord(ReadHex("D: "));
+    auto A = ToSet(ReadHex("A: "));
+    auto B = ToSet(ReadHex("B: "));
+    auto C = ToSet(ReadHex("C: "));
+    auto D = ToSet(ReadHex("D: "));
 
     return { A, B, C, D };
 }
@@ -116,7 +116,7 @@ int main() {
             return 0;
     }
 
-    auto res = ToString(EvaluateWord(A, B, C, D));
+    auto res = ToString(DoEvaluation(A, B, C, D));
 
     cout << "(A | C) & !(B | D): "
          << res

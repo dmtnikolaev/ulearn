@@ -95,7 +95,7 @@ string Set_ToString(const Set& a) {
     return str;
 }
 
-Set* EvaluateSet(const Set* A, const Set* B,
+Set* DoEvaluation(const Set* A, const Set* B,
                  const Set* C, const Set* D) {
     auto A_or_C = Set_Union(A, C);
     auto B_or_D = Set_Union(B, D);
@@ -115,7 +115,7 @@ string ReadHex(string prompt) {
     return str;
 }
 
-Set* ToList(const string& hex_array) {
+Set* ToSet(const string& hex_array) {
     Set* set = nullptr;
     for (auto c : hex_array) {
         set = Set_Add(set, c);
@@ -164,10 +164,10 @@ auto GenerateInput() {
 }
 
 auto ReadInputFromUser() {
-    auto A = ToList(ReadHex("A: "));
-    auto B = ToList(ReadHex("B: "));
-    auto C = ToList(ReadHex("C: "));
-    auto D = ToList(ReadHex("D: "));
+    auto A = ToSet(ReadHex("A: "));
+    auto B = ToSet(ReadHex("B: "));
+    auto C = ToSet(ReadHex("C: "));
+    auto D = ToSet(ReadHex("D: "));
 
     return make_tuple(A, B, C, D );
 }
@@ -195,7 +195,7 @@ int main() {
             return 0;
     }
 
-    auto res = EvaluateSet(A, B, C, D);
+    auto res = DoEvaluation(A, B, C, D);
     auto res_str = Set_ToString(*res);
 
     cout << "(A | C) & !(B | D): "
