@@ -1,6 +1,9 @@
 # Idea settings
 .idea/
 
+# Vscode settings
+.vscode/
+
 # Cmake build
 cmake-build-debug/
 cmake/
