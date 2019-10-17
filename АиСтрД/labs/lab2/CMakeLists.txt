@@ -13,4 +13,4 @@ set(HEADER arr.h
             list.h
             word.h)
 
-add_executable(lab2 lab2.cpp)
+add_executable(lab2 ${SOURCE})
