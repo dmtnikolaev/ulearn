@@ -12,5 +12,5 @@ set(HEADER arr.h
             bitarr.h
             list.h
             word.h)
-
-add_executable(lab2 ${SOURCE})
+add_definitions(-DSET_IMPL=1)    
+add_executable(lab2 lab2.cpp ${SOURCE})

@@ -1,4 +1,8 @@
+#if SET_IMPL == 0
+
 #include "word.h"
+
+#include <iostream>
 
 Set::Set(const std::string &str) {
     word_ = StringToWord(str);
@@ -62,3 +66,5 @@ Word Set::StringToWord(const std::string &str) const {
 
     return word;
 }
+
+#endif

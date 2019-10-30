@@ -1,12 +1,10 @@
-#define SET_IMPL WORD
-
-#if SET_IMPL == WORD
+#if SET_IMPL == 0
     #include "word.h"
-#elif SET_IMPL == BITARR
+#elif SET_IMPL == 1
     #include "bitarr.h"
-#elif SET_IMPL == ARR
+#elif SET_IMPL == 2
     #include "arr.h"
-#elif SET_IMPL == LIST
+#elif SET_IMPL == 3
     #include "list.h"
 #else
     #error "unknown implementation"
