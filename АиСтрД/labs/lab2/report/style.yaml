@@ -1,0 +1,33 @@
+---
+lang: ru
+
+documentclass: extarticle
+fontsize: 14pt
+mainfont: Tinos
+romanfont: Tinos
+monofont: Cousine
+sansfont: Arimo
+geometry: left=30mm,right=15mm,top=20mm,bottom=20mm,headsep=0pt,includefoot
+
+# Eisvogel settings (see https://github.com/Wandmalfarbe/pandoc-latex-template)
+#
+toc-own-page: True
+disable-header-and-footer: True
+listings-disable-line-numbers: True
+
+header-includes: |
+    \usepackage{tabularx}
+    \usepackage{multirow}
+    \usepackage{gensymb}
+    \usepackage{listings}
+    \usepackage{verbatimbox}
+include-before: |
+    \newfontfamily{\cyrillicfont}{Tinos} 
+    \newfontfamily{\cyrillicfontrm}{Tinos}
+    \newfontfamily{\cyrillicfonttt}{Cousine}
+    \newfontfamily{\cyrillicfontsf}{Arimo}
+
+    \input{titlepage.tex}
+
+    \setcounter{page}{2}
+---
