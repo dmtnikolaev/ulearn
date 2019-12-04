@@ -1,5 +1,8 @@
 #include "tree.h"
 
+#include <queue>
+#include "node.h"
+
 void Tree::OutTree(Screen &screen) {
     screen.Clear();
     if (root_) {
@@ -34,4 +37,28 @@ void Tree::OutNodes(Node* root, Screen &screen, int depth, int offset) {
         OutNodes(root->right(), screen, depth + 1, 
             offset + (kOffset >> depth + 1));
     }
+}
+
+int Tree::BFS() {
+    const int kMaxQueue = 20;
+    int count = 0;
+    std::queue<Node*> queue;
+    queue.push(root_);
+    while (!queue.empty()) {
+        Node* node = queue.front();
+        queue.pop();
+        std::cout << node->tag() << '_';
+        count++;
+        if (node->left()) {
+            queue.push(node->left());
+        }
+        if (node->middle()) {
+            queue.push(node->middle());
+        }
+        if (node->right()) {
+            queue.push(node->right());
+        }
+    }
+
+    return count;
 }

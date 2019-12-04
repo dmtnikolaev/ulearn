@@ -12,5 +12,9 @@ int main() {
 
     screen.Print();
 
+    std::cout << std::endl << "Обход в ширину: ";
+    auto nodes_visited_count = tree.BFS();
+    std::cout << " Пройдено узлов = " << nodes_visited_count << std::endl;
+
     return 0;
 }

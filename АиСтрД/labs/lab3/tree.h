@@ -18,6 +18,7 @@ public:
         root_ = MakeNode(kRootDepth);
     }
     void OutTree(Screen &screen);
+    int BFS();
 
 private:
     const int kRootDepth = 0;
