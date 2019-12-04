@@ -5,21 +5,21 @@
 
 class Screen {
 public:
-    static constexpr int kmax_height_ = 8;
-    static constexpr int kmax_width_ = 90;
+    static const int kHeight = 5;
+    static const int kWidth = 80;
 
     Screen() {
         Clear();
     }
 
-    inline char symbol(int x, int y) { return screen_[x][y]; }
-    inline void set_symbol(int x, int y, char c) { screen_[x][y] = c; }
-
+    void SetSymbol(int x, int y, char c) {
+        screen_[x][y] = c;
+    }
     void Clear();
     void Print();
 
 private:
-    char screen_[kmax_height_][kmax_width_];
+    char screen_[kHeight][kWidth];
 };
 
 #endif  // LAB3_SCREEN_H_
