@@ -3,28 +3,31 @@
 
 #include <cstdlib>
 #include "node.h"
+#include "screen.h"
 
 class Tree {
 public:
     Tree(char first_tag, char max_tag, int max_depth) : current_tag_(first_tag),
         max_tag_(max_tag), max_depth_(max_depth) {}
 
-    ~Tree();
+    ~Tree() { delete root_; }
 
     inline void MakeTree() { root_ = MakeNode(kroot_depth_); }
-    void OutTree();
+    void OutTree(Screen &screen);
 
 private:
     const int kroot_depth_ = 0;
+    const int koffset_ = 43;
 
     Tree(const Tree &tree);
     Tree operator=(const Tree &tree) const;
 
     inline bool DoNodeMaking(int depth) {
-        return (depth < std::rand()%(max_depth_+1) + 1) && 
-            (current_tag_ <= max_tag_);
+        return depth < std::rand()%max_depth_ + 1 && 
+            current_tag_ <= max_tag_;
     }
     Node* MakeNode(int depth);
+    void OutNodes(Node* root, Screen &screen, int depth, int offset);
 
     char current_tag_;
     char max_tag_;

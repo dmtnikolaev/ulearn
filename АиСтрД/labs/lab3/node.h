@@ -4,17 +4,17 @@
 class Node {
 public:
     Node() : tag_('\0'), left_(nullptr), middle_(nullptr), right_(nullptr) {}
-    
+
     ~Node() { 
             delete left_; 
             delete middle_; 
             delete right_;
         }
 
-    inline char tag() { return tag_; }
-    inline Node* left() { return left_; }
-    inline Node* middle() { return middle_; }
-    inline Node* right() { return right_; }
+    inline char tag() const { return tag_; }
+    inline Node* left() const { return left_; }
+    inline Node* middle() const { return middle_; }
+    inline Node* right() const { return right_; }
 
     inline void set_tag(char tag) { tag_ = tag; }
     inline void set_left(Node* left) { left_ = left; }

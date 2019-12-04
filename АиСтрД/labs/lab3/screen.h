@@ -5,6 +5,9 @@
 
 class Screen {
 public:
+    static constexpr int kmax_height_ = 8;
+    static constexpr int kmax_width_ = 90;
+
     Screen() {
         Clear();
     }
@@ -16,9 +19,6 @@ public:
     void Print();
 
 private:
-    static const int kmax_height_ = 8;
-    static const int kmax_width_ = 80;
-
     char screen_[kmax_height_][kmax_width_];
 };
 
