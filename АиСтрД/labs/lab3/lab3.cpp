@@ -15,6 +15,7 @@ int main() {
     std::cout << std::endl << "Обход в ширину: ";
     auto nodes_visited_count = tree.BFS();
     std::cout << " Пройдено узлов = " << nodes_visited_count << std::endl;
+    std::cout << "Высота дерева = " << tree.depth() + 1 << std::endl;
 
     return 0;
 }

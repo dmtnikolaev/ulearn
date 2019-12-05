@@ -16,6 +16,10 @@ Node* Tree::MakeNode(int depth) {
     if (DoNodeMaking(depth)) {
         node = new Node(current_tag_++, MakeNode(depth + 1), 
                         MakeNode(depth + 1), MakeNode(depth + 1));
+        
+        if (depth > depth_) {
+            depth_ = depth;
+        }
     }
 
     return node;

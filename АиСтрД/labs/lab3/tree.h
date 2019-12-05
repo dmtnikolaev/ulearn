@@ -10,6 +10,10 @@ public:
     Tree(char first_tag, char max_tag, int max_depth) :
         current_tag_(first_tag), max_tag_(max_tag), max_depth_(max_depth) {}
 
+    int depth() {
+        return depth_;
+    }
+
     ~Tree() {
         delete root_;
     }
@@ -35,6 +39,7 @@ private:
 
     char current_tag_;
     char max_tag_;
+    int depth_ = kRootDepth;
     int max_depth_;
     int offset_;
     Node* root_ = nullptr;
