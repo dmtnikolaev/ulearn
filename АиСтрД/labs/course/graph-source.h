@@ -1,0 +1,4 @@
+#ifndef COURSE_GRAPH_SOURCE_H_
+#define COURSE_GRAPH_SOURCE_H_
+
+#endif  // COURSE_GRAPH_SOURCE_H_
