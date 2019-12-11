@@ -13,7 +13,7 @@ public:
     virtual void AddEdge(Node u, Node v) = 0;
 
     virtual Node* GetNode(int id) const = 0;
-    virtual std::vector<Node*> GetNeigbors(int id) = 0;
+    virtual std::vector<Node*> GetNeighbors(int id) = 0;
 
     virtual int count() const = 0;
 
@@ -31,7 +31,7 @@ public:
     void AddEdge(Node u, Node v) override;
 
     Node* GetNode(int id) const override;
-    std::vector<Node*> GetNeigbors(int id) override;
+    std::vector<Node*> GetNeighbors(int id) override;
 
     int count() const override {
         return nodes_.size();

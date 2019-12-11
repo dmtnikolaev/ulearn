@@ -38,7 +38,7 @@ Node* AdjList::GetNode(int id) const {
     return nodes_.at(id);
 }
 
-std::vector<Node*> AdjList::GetNeigbors(int id) {
+std::vector<Node*> AdjList::GetNeighbors(int id) {
     auto nei_ids = adj_list_[id];
     auto nei = std::vector<Node*>();
     for (auto nei_id : nei_ids) {
