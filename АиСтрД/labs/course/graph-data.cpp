@@ -10,11 +10,13 @@ AdjList::AdjList() {
 }
 
 void AdjList::AddNode(Node u) {
-    if (u.id() < count()) {
+    if (u.id() < count() &&
+        nodes_[u.id()] != Node::kEmptyPtr) {
+
         return;
     }
-    auto node_pos = nodes_.begin() + u.id()*sizeof(Node*);
-    nodes_.insert(node_pos, new Node(u.id()));
+    nodes_.resize(u.id()+1, Node::kEmptyPtr);
+    nodes_[u.id()] = new Node(u.id());
     auto nei = std::vector<int>();
     adj_list_.insert({ u.id(), nei });
 }
@@ -31,16 +33,20 @@ void AdjList::AddEdge(int id1, int id2) {
 void AdjList::AddEdge(Node u, Node v) {
     AddNode(u);
     AddNode(v);
-    AddEdge(v.id(), v.id());
+    AddEdge(u.id(), v.id());
 }
 
-Node* AdjList::GetNode(int id) const {
+std::vector<const Node*> AdjList::GetNodes() const {
+    return nodes_;
+}
+
+const Node* AdjList::GetNode(int id) const {
     return nodes_.at(id);
 }
 
-std::vector<Node*> AdjList::GetNeighbors(int id) {
-    auto nei_ids = adj_list_[id];
-    auto nei = std::vector<Node*>();
+std::vector<const Node*> AdjList::GetNeighbors(int id) const {
+    auto nei_ids = adj_list_.at(id);
+    auto nei = std::vector<const Node*>();
     for (auto nei_id : nei_ids) {
         nei.push_back(nodes_[nei_id]);
     }
@@ -49,7 +55,9 @@ std::vector<Node*> AdjList::GetNeighbors(int id) {
 
 AdjList::~AdjList() {
     for (auto u : nodes_) {
-        delete u;
+        if (u != Node::kEmptyPtr) {
+            delete u;
+        }
     }
 }
 

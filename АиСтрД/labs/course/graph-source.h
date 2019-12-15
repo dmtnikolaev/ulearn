@@ -18,6 +18,10 @@ struct Edge {
 class GraphSource {
 public:
     virtual std::vector<Edge> Load() const = 0;
+
+    virtual ~GraphSource() {
+
+    }
 };
 
 class TextFileSource : public GraphSource {
@@ -27,6 +31,8 @@ public:
     }
 
     std::vector<Edge> Load() const override;
+
+    ~TextFileSource() override;
 
 private:
     Edge ParseFileLine(std::string s) const;

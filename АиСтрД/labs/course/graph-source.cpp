@@ -53,3 +53,6 @@ Edge TextFileSource::ParseFileLine(std::string s) const {
     return Edge(n1, n2);
 }
 
+TextFileSource::~TextFileSource() {
+
+}
