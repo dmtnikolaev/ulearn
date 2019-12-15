@@ -36,17 +36,17 @@ void AdjList::AddEdge(Node u, Node v) {
     AddEdge(u.id(), v.id());
 }
 
-std::vector<const Node*> AdjList::GetNodes() const {
+std::vector<Node*> AdjList::GetNodes() const {
     return nodes_;
 }
 
-const Node* AdjList::GetNode(int id) const {
+Node* AdjList::GetNode(int id) const {
     return nodes_.at(id);
 }
 
-std::vector<const Node*> AdjList::GetNeighbors(int id) const {
+std::vector<Node*> AdjList::GetNeighbors(int id) const {
     auto nei_ids = adj_list_.at(id);
-    auto nei = std::vector<const Node*>();
+    auto nei = std::vector<Node*>();
     for (auto nei_id : nei_ids) {
         nei.push_back(nodes_[nei_id]);
     }

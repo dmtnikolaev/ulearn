@@ -12,9 +12,9 @@ public:
     virtual void AddEdge(int id1, int id2) = 0;
     virtual void AddEdge(Node u, Node v) = 0;
 
-    virtual std::vector<const Node*> GetNodes() const = 0;
-    virtual const Node* GetNode(int id) const = 0;
-    virtual std::vector<const Node*> GetNeighbors(int id) const = 0;
+    virtual std::vector<Node*> GetNodes() const = 0;
+    virtual Node* GetNode(int id) const = 0;
+    virtual std::vector<Node*> GetNeighbors(int id) const = 0;
 
     virtual int count() const = 0;
 
@@ -31,9 +31,9 @@ public:
     void AddEdge(int id1, int id2) override;
     void AddEdge(Node u, Node v) override;
 
-    virtual std::vector<const Node*> GetNodes() const override;
-    const Node* GetNode(int id) const override;
-    std::vector<const Node*> GetNeighbors(int id) const override;
+    virtual std::vector<Node*> GetNodes() const override;
+    Node* GetNode(int id) const override;
+    std::vector<Node*> GetNeighbors(int id) const override;
 
     int count() const override {
         return nodes_.size();
@@ -42,7 +42,7 @@ public:
     ~AdjList();
 
 private:
-    std::vector<const Node*> nodes_;
+    std::vector<Node*> nodes_;
     std::map<int, std::vector<int>> adj_list_;
 };
 

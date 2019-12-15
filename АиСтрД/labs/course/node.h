@@ -19,13 +19,13 @@ public:
         visited_ = flag;
     }
 
-    friend std::ostream& operator<<(std::ostream& os, const Node& n) {
+    friend std::ostream& operator<<(std::ostream& os, Node& n) {
         os << std::to_string(n.id_ + 1);
         return os;
     }
 
-    static const Node kEmpty;
-    static const Node* kEmptyPtr;
+    static Node kEmpty;
+    static Node* kEmptyPtr;
 
 private:
     int id_;

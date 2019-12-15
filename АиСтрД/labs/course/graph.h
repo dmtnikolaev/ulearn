@@ -10,8 +10,22 @@
 
 struct Cycle {
 public:
-    Cycle();
-    void Add(Node* u);
+    Cycle() {};
+    void Add(Node* u) {
+        nodes_.push_back(u);
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const Cycle& c) {
+        os << "( ";
+
+        for (auto n : c.nodes_) {
+            os << *n << " ";
+        }
+
+        os << ")" << std::endl;
+
+        return os;
+    }
 
     std::vector<Node*> nodes() const {
         return nodes_;
@@ -21,9 +35,10 @@ private:
     std::vector<Node*> nodes_;
 };
 
-template<class Repr = AdjList>
 class Graph {
 public:
+    using Repr = AdjList;
+
     Graph(const GraphSource* src) {
         std::vector<Edge> edges = src->Load();
 
@@ -32,7 +47,7 @@ public:
         }
     }
 
-    friend std::ostream& operator<<(std::ostream& os, const Graph<Repr>& gr) {
+    friend std::ostream& operator<<(std::ostream& os, const Graph& gr) {
         for (auto u : gr.data_.GetNodes()) {
             os  << *u << " -> ";
 
@@ -56,7 +71,7 @@ public:
 private:
     Repr data_;
 
-    std::vector<Node*> Dfs();
+    std::vector<Node*> Dfs(Node* n);
 };
 
 #endif  // COURSE_GRAPH_H_
