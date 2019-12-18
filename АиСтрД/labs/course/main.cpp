@@ -5,7 +5,7 @@
 #include "graph.h"
 #include "graph-source.h"
 
-void PrintCycles(Graph gr) {
+void PrintCycles(Graph& gr) {
     std::cout << "Cycles: " << std::endl;
     
     for (auto c : gr.BuildCycles()) {

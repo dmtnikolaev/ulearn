@@ -18,8 +18,8 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Cycle& c) {
         os << "( ";
 
-        for (auto n : c.nodes_) {
-            os << *n << " ";
+        for (int i = c.nodes_.size() - 1; i >= 0; i--) {
+            os << *(c.nodes_[i]) << " ";
         }
 
         os << ")" << std::endl;
@@ -33,6 +33,7 @@ public:
 
 private:
     std::vector<Node*> nodes_;
+    bool empty;
 };
 
 class Graph {
@@ -71,7 +72,7 @@ public:
 private:
     Repr data_;
 
-    std::vector<Node*> Dfs(Node* n);
+    std::vector<Cycle> Dfs(Node* n, Node* start);
 };
 
 #endif  // COURSE_GRAPH_H_
